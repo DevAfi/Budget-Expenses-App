@@ -3,11 +3,13 @@ from expense import Expense
 
 def main():
     print("Welcome to the Expense Tracker!")
+    expense_file = "Expenses.csv"
+    ""
 
     # Take input from user
-    get_user_input()
+    e1 = get_user_input()
     # write input to a file
-    write_to_file()
+    write_to_file(e1, expense_file)
 
     
     # Read from the file and display the expenses
@@ -33,19 +35,19 @@ def get_user_input():
         if choice.isdigit() and 1 <= int(choice) <= len(categories):
             eType = categories[int(choice) - 1]
             print(f"Expense recorded: {eName}, Type: {eType}, Amount: £{eAmount:.2f}")
-            newExpense = Expense(eName, eType, eAmount)
+            newExpense = Expense(eName, categories[int(choice) - 1], eAmount)
+            return newExpense
         else:
             print(f"Invalid choice. Please enter a number between 1 and {len(categories)}.")
             continue
-        break
 
+    
 
+def write_to_file(expense, filename):
+    print(f"Writing {expense} to {filename}")
 
-
-
-
-def write_to_file():
-    pass
+    with open(filename, "a") as file:
+        file.write(f"{expense.name},{expense.type},{expense.amount}\n")
 
 def summarize_expenses():
     pass
